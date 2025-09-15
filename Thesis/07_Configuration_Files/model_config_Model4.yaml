@@ -1,0 +1,38 @@
+# model_config_Maze5.yaml
+model:
+  # Wav2Vec2 frontend parameters
+  wav2vec2_model_name: 'facebook/wav2vec2-base-960h'
+  wav2vec2_output_dim: 768 # Per layer
+  wav2vec2_freeze_cnn: True
+  wav2vec2_unfrozen_transformers: 0 # Example: Keep frozen, focus on fusion and aug
+  wav2vec2_output_layers: [-1, -4] # Fuse last and 4th-to-last transformer layer outputs (adjust based on num_layers in w2v2 model)
+  projected_dim: 768 # Dimension after fusing and projecting w2v2 features
+
+  # SpecAugment parameters
+  use_spec_augment_w2v2: True
+  spec_aug_freq_mask_param_w2v2: 27
+  spec_aug_n_freq_masks_w2v2: 1
+  spec_aug_time_mask_param_w2v2: 100
+  spec_aug_n_time_masks_w2v2: 1
+
+  # RawNet2-style backend parameters
+  filts: 128 
+  dropout_rate: 0.3
+  res_pool_stride_w2v2: 2
+  
+  # Transformer backend parameters
+  transformer_nhead: 8
+  transformer_dim_feedforward: 2048 
+  transformer_dropout: 0.1
+  transformer_num_layers: 4
+
+  # Attentive Statistics Pooling
+  attn_pool_hidden_dim: 128
+
+  # Classifier parameters
+  nb_fc_node: 256
+  fc_dropout: 0.5
+  nb_classes: 2
+
+focal_loss_alpha: 0.25
+focal_loss_gamma: 2.0

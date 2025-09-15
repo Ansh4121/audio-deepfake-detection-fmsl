@@ -1,0 +1,60 @@
+# Configuration file for Maze5 (Advanced Model with Multi-level Wav2Vec2, Fine-tuning, and Attentive Pooling)
+# This configuration enables advanced deepfake detection with sophisticated feature extraction
+
+model:
+  # Wav2Vec2 Configuration
+  wav2vec2_model_name: 'facebook/wav2vec2-base-960h'  # Use base model for better compatibility
+  wav2vec2_output_dim: 768  # Large model output dimension
+  wav2vec2_freeze_cnn: false  # Allow fine-tuning of CNN layers
+  wav2vec2_unfrozen_transformers: 4  # Unfreeze last 4 transformer layers
+  wav2vec2_output_layers: [-4, -3, -2, -1]  # Use multiple layers for richer features
+  
+  # Feature Projection
+  projected_dim: 768  # Project to same dimension as Wav2Vec2 output
+  
+  # SpecAugment Configuration
+  use_spec_augment_w2v2: true
+  spec_aug_freq_mask_param_w2v2: 15
+  spec_aug_n_freq_masks_w2v2: 2
+  spec_aug_time_mask_param_w2v2: 15
+  spec_aug_n_time_masks_w2v2: 2
+  
+  # Residual Block Configuration
+  filts: filts: [128, [128, 128], [128, 256]]  # Extended filter dimensions
+  
+  # Transformer Configuration
+  transformer_nhead: 16
+  transformer_dim_feedforward: 4096
+  transformer_num_layers: 6
+  transformer_dropout: 0.1
+  
+  # Attentive Pooling
+  attn_pool_hidden_dim: 256
+  
+  # Fully Connected Layers
+  nb_fc_node: 2048
+  fc_dropout: 0.5
+  
+  # Output
+  nb_classes: 2
+
+# Training Configuration
+training:
+  num_epochs: 100
+  batch_size: 16
+  learning_rate: 0.0001
+  learning_rate_wav2vec2: 0.00001  # Lower LR for pre-trained components
+  weight_decay: 0.0001
+  grad_clip_norm: 1.0
+  seed: 1234
+  
+  # Loss function
+  loss: 'focal'  # Use focal loss for class imbalance
+  
+  # Data paths
+  database_path: '/content/drive/MyDrive/ASVspoof2019/Extract/LA/'
+  protocols_path: '/content/drive/MyDrive/ASVspoof2019/Extract/LA/ASVspoof2019_LA_cm_protocols/'
+  
+  # Model saving
+  comment: 'maze5_advanced'
+  track: 'LA'

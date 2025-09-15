@@ -1,0 +1,36 @@
+model:
+  # Wav2Vec2 Configuration
+  wav2vec2_model_name: 'facebook/wav2vec2-base-960h'  # Use base model for faster training
+  wav2vec2_output_dim: 768  # Base model output dimension
+  wav2vec2_freeze_cnn: true  # Freeze CNN feature extractor
+  wav2vec2_unfrozen_transformers: 0  # Don't unfreeze transformer layers initially
+  wav2vec2_output_layers: [-1]  # Use only the last layer
+  
+  # Feature Projection
+  projected_dim: 768  # Project to same dimension as Wav2Vec2 output
+  
+  # SpecAugment Configuration
+  use_spec_augment_w2v2: true
+  spec_aug_freq_mask_param_w2v2: 10
+  spec_aug_n_freq_masks_w2v2: 1
+  spec_aug_time_mask_param_w2v2: 10
+  spec_aug_n_time_masks_w2v2: 1
+  
+  # Residual Block Configuration
+  filts: [128, [128, 128], [128, 256]]  # Filter dimensions for residual blocks
+  
+  # Transformer Configuration
+  transformer_nhead: 8
+  transformer_dim_feedforward: 2048
+  transformer_num_layers: 4
+  transformer_dropout: 0.1
+  
+  # Attentive Pooling
+  attn_pool_hidden_dim: 128
+  
+  # Fully Connected Layers
+  nb_fc_node: 1024
+  fc_dropout: 0.5
+  
+  # Output
+  nb_classes: 2  # Binary classification (bonafide vs spoof)

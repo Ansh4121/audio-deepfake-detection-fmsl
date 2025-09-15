@@ -2,13 +2,55 @@
 
 ## Overview
 
-This repository contains the complete implementation and evaluation of a novel Frequency-Modulated Spectral Loss (FMSL) approach for audio deepfake detection. The research presents a comprehensive comparison between baseline models and FMSL-enhanced models across 8 different architectural configurations.
+This repository contains the complete implementation and evaluation of a novel Frequency-Modulated Spectral Loss (FMSL) approach for audio deepfake detection using the **ASVspoof2019 LA dataset**. The research presents a comprehensive comparison between baseline models and FMSL-enhanced models across 8 different architectural configurations.
 
-## Repository Structure
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/audio-deepfake-detection-fmsl.git
+cd audio-deepfake-detection-fmsl
+
+# Setup environment (Linux/Mac)
+chmod +x setup.sh
+./setup.sh
+
+# Setup environment (Windows)
+setup.bat
+
+# Activate virtual environment
+source venv/bin/activate  # Linux/Mac
+# or
+venv\Scripts\activate.bat  # Windows
+
+# Run basic tests
+python tests/test_basic.py
+```
+
+## 📊 Dataset
+
+- **ASVspoof2019 LA** (Logical Access track)
+- **Training**: 25,380 bonafide + 25,380 spoofed utterances
+- **Evaluation**: 7,355 bonafide + 63,882 spoofed utterances
+- **Sample Rate**: 16 kHz
+- **Format**: FLAC audio files
+
+## 📁 Repository Structure
 
 ```
 Thesis_Project/
-├── 01_Models/
+├── 📦 Essential Files
+│   ├── .gitignore                   # Git ignore rules
+│   ├── requirements.txt             # Python dependencies
+│   ├── setup.py                     # Package installation
+│   ├── environment.yml              # Conda environment
+│   ├── setup.sh                     # Linux/Mac setup script
+│   ├── setup.bat                    # Windows setup script
+│   └── tests/                       # Test suite
+│       ├── __init__.py
+│       └── test_basic.py            # Basic functionality tests
+│
+├── 🧠 Models
 │   ├── 01_Baseline_Models/          # Original models without FMSL
 │   │   ├── maze1.py                 # Baseline RawNet2 with Fixed SincConv
 │   │   ├── maze2.py                 # Wav2Vec2 + SpecAugment + Focal Loss
@@ -40,26 +82,31 @@ Thesis_Project/
 │   ├── thesis_results/
 │   ├── comprehensive_fmsl_analysis.py
 │   └── thesis_automation.py
-├── 05_Documentation/                # Documentation and guides
+├── 📚 Documentation/                # Complete documentation
+│   ├── INSTALLATION.md              # Installation guide
+│   ├── USAGE.md                     # Usage guide
+│   ├── TROUBLESHOOTING.md           # Troubleshooting guide
 │   ├── GOOGLE_COLAB_GUIDE.md
 │   ├── MAZE5_EVALUATION_GUIDE.md
 │   ├── THESIS_ANALYSIS_USAGE_GUIDE.md
 │   └── ...                          # All documentation files
-├── 06_Utilities/                    # Utility functions and tools
+├── 🔧 Utilities/                    # Utility functions and tools
 │   ├── fmsl_advanced.py
 │   ├── fmsl_standardized_config.py
 │   ├── checkpoint_manager.py
-│   └── unified_model_evaluator.py
+│   ├── unified_model_evaluator.py
+│   ├── data_preprocessor.py         # Data preprocessing utilities
+│   └── model_trainer.py             # Automated training script
 ├── 07_Configuration_Files/          # Model configuration files
 │   ├── model_config.yaml
 │   ├── model_config_Maze6.yaml
 │   └── models_config_template.json
-├── 08_Notebooks/                    # Jupyter notebooks
+├── 📓 Notebooks/                    # Jupyter notebooks
+│   ├── Complete_Thesis.ipynb        # Main thesis notebook
 │   ├── Colab_CPU_Test_Notebook.ipynb
 │   ├── FMSL_Maze_Models_Colab.ipynb
 │   └── GOOGLE_COLAB_SEQUENTIAL_TRAINING.ipynb
-└── 09_LaTeX_Source/                 # LaTeX source and PDFs
-    ├── WUT-Thesis/
+└── 📄 LaTeX/                        # LaTeX source and PDFs (in WUT-Thesis/)
     ├── Thesis.pdf
     └── Audio Deepfake Detection FMSL Research.pdf
 ```

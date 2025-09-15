@@ -1,0 +1,28 @@
+model:
+  # Wav2Vec2 Parameters
+  wav2vec2_model_name: 'facebook/wav2vec2-large-960h'
+  wav2vec2_freeze: True
+  wav2vec2_output_dim: 1024 # For 'wav2vec2-large-960h'
+
+  # SpecAugment for Wav2Vec2 Features
+  use_spec_augment_w2v2: True
+  spec_aug_freq_mask_param_w2v2: 80
+  spec_aug_n_freq_masks_w2v2: 2
+  spec_aug_time_mask_param_w2v2: 100
+  spec_aug_n_time_masks_w2v2: 2
+
+  # RawNet-style Block Parameters
+  filts: [128, [128, 128], [128, 256]] # Number of filters in the SE-ResBlocks
+  dropout_rate: 0.3
+  res_pool_stride_w2v2: 2
+
+  # Transformer Parameters
+  transformer_nhead: 8
+  transformer_dim_feedforward: 2048
+  transformer_dropout: 0.1
+  transformer_num_layers: 6
+
+  # Fully Connected Layers
+  nb_fc_node: 1024
+  fc_dropout: 0.5
+  nb_classes: 2
