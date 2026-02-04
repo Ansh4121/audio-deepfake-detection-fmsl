@@ -3,36 +3,36 @@
 \section{Problem Statement}
 
 \subsection{Rising Threat of Sophisticated Deepfake Audio}
-% TODO: Add content here
+The rapid advancement of text-to-speech (TTS) and voice conversion (VC) technologies has created unprecedented challenges for audio authenticity verification \cite{yi2023survey}. Modern neural network-based synthesis systems can generate highly convincing fake audio that is increasingly difficult to distinguish from genuine human speech \cite{mueller2021human}. This poses significant risks across multiple domains, including financial fraud, political manipulation, and personal identity theft.
 
 \subsection{Need for Robust, Generalizable Detection Models}
-% TODO: Add content here
+Current audio deepfake detection systems face a critical limitation: while they achieve high accuracy on known attack types, their performance degrades significantly when confronted with novel spoofing methods \cite{muller2022generalize}. This generalization gap represents the core challenge addressed by this thesis. The ASVspoof challenge series has been instrumental in advancing the field by providing standardized benchmarks and evaluation protocols \cite{asvspoof2019, asvspoof2019evaluation}.
 
 \section{Research Goal}
 
 \subsection{Two-Stage Methodology Overview}
-% TODO: Add content here
+This thesis proposes a systematic two-stage approach to audio deepfake detection: (1) identifying geometric bottlenecks in existing baseline architectures through comprehensive analysis, and (2) developing a novel Feature Matching Self-Supervised Learning (FMSL) solution that addresses these limitations while maintaining computational efficiency.
 
 \subsection{Core Research Questions}
-% TODO: Add content here
+The research addresses three fundamental questions: (1) What geometric properties of feature representations limit baseline model generalization? (2) How can angular margin-based learning improve class separation in the embedding space? (3) Can prototype-based classification effectively model the diverse spoof manifold?
 
 \section{Research Contributions}
 
 \subsection{Novel Iterative Approach}
-% TODO: Add content here
+This thesis introduces a systematic methodology for analyzing and improving audio deepfake detection through progressive model complexity analysis across eight architectural variants (Maze 1--8).
 
 \subsection{Core Limitation Identification}
-% TODO: Add content here
+Through comprehensive analysis, we identify the geometric bottleneck in baseline models: insufficient angular separation between bonafide and spoof classes in the learned feature space, leading to poor generalization.
 
 \subsection{FMSL Innovation}
-% TODO: Add content here
+We propose Feature Matching Self-Supervised Learning (FMSL), which combines L2-normalized hypersphere projection, angular margin learning inspired by face recognition \cite{arcface}, and prototype-based spoof class modeling to address the identified limitations.
 
 \subsection{Performance Breakthrough}
-% TODO: Add content here
+FMSL achieves consistent improvements across all tested architectures, with the optimal configuration (Maze 5 + FMSL) achieving state-of-the-art performance on ASVspoof 2019 LA evaluation set.
 
 \subsection{Standardization Framework}
-% TODO: Add content here
+To ensure fair comparison and reproducibility, we develop a standardized evaluation framework with consistent hyperparameters, training protocols, and evaluation metrics across all model variants.
 
 \section{Thesis Organization}
-% TODO: Add content here
+Chapter 2 describes the ASVspoof 2019 dataset and preprocessing pipeline. Chapter 3 presents the baseline model architectures. Chapter 4 analyzes limitations through geometric analysis. Chapter 5 introduces the FMSL solution. Chapter 6 provides experimental validation and results. Chapter 7 discusses parameter sensitivity. Chapter 8 concludes with future directions.
 

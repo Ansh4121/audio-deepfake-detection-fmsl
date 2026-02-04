@@ -3,24 +3,57 @@
 \section{Holistic Summary of Research Journey}
 
 \subsection{Complete Research Narrative}
-% TODO: Add content here
+This thesis presented a systematic approach to improving audio deepfake detection through geometric analysis and targeted solution development. Beginning with the observation that existing models struggle to generalize to unseen attack types \cite{muller2022generalize}, we conducted a comprehensive analysis of eight progressive model architectures to identify the core limitation: insufficient angular separation in the learned feature space.
+
+Our proposed solution, Feature Matching Self-Supervised Learning (FMSL), directly addresses this geometric bottleneck by combining L2 normalization, angular margin learning \cite{arcface}, and prototype-based spoof modeling. The approach is inspired by successful techniques in face recognition but adapted to the unique challenges of audio deepfake detection.
 
 \subsection{Key Achievements}
-% TODO: Add content here
+The research contributions of this thesis include:
+\begin{enumerate}
+\item \textbf{Systematic limitation identification}: Through analysis of Maze 1--8 architectures, we identified the geometric bottleneck as the primary factor limiting generalization
+\item \textbf{Novel FMSL framework}: A plug-and-play module that improves any baseline architecture without modifying the feature extractor
+\item \textbf{Consistent improvements}: FMSL achieves improvements across all tested architectures, with Maze 5 + FMSL achieving optimal performance
+\item \textbf{Standardized evaluation}: A reproducible framework ensuring fair comparison across model variants
+\end{enumerate}
 
 \section{Driving the Point Home: Comprehensive Results}
 
 \subsection{Summary Visualizations}
-% TODO: Add content here
+The experimental results (Chapter 6) demonstrate that FMSL consistently improves detection performance across all Maze architectures. Key visualizations include:
+\begin{itemize}
+\item Performance comparison charts showing EER improvements
+\item Score distribution analysis revealing improved class separation
+\item Confusion matrix analysis demonstrating reduced false acceptance rates
+\end{itemize}
+
+All figures are available in the repository at \texttt{WUT-Thesis/img/} and can be regenerated using the scripts in \texttt{Thesis/02\_Evaluation\_Scripts/}.
 
 \subsection{Key Performance Metrics}
-% TODO: Add content here
+On the ASVspoof 2019 LA evaluation set \cite{asvspoof2019evaluation}:
+\begin{itemize}
+\item Maze 5 + FMSL achieves the optimal balance of performance and complexity
+\item FMSL provides consistent improvements regardless of baseline architecture
+\item The standardized protocol ensures fair, reproducible comparisons
+\end{itemize}
 
 \section{Future Research Directions}
 
 \subsection{Potential Extensions}
-% TODO: Add content here
+Future work could explore:
+\begin{enumerate}
+\item \textbf{Cross-dataset evaluation}: Testing FMSL on ASVspoof 2021 and other benchmarks \cite{huang2025}
+\item \textbf{Adaptive prototypes}: Dynamically adjusting the number of prototypes based on attack diversity
+\item \textbf{Multi-modal fusion}: Combining audio features with linguistic or visual cues for enhanced detection
+\item \textbf{Real-time deployment}: Optimizing FMSL for low-latency inference in production systems
+\end{enumerate}
 
 \subsection{Open Questions}
-% TODO: Add content here
+Several open questions remain for the research community:
+\begin{itemize}
+\item How can detection systems maintain robustness against continuously evolving synthesis technologies?
+\item What is the theoretical limit of generalization for learned countermeasures?
+\item Can self-supervised pre-training further improve FMSL performance?
+\end{itemize}
+
+The code and materials for reproducing all experiments are available at:\\ \url{https://github.com/Ansh4121/audio-deepfake-detection-fmsl}
 

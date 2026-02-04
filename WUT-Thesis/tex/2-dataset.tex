@@ -3,21 +3,50 @@
 \section{ASVspoof2019 Dataset Description}
 
 \subsection{Dataset Characteristics}
-% TODO: Add content here
+The ASVspoof 2019 Logical Access (LA) dataset \cite{asvspoof2019} serves as the primary benchmark for this research. It contains bonafide speech recordings and spoofed audio generated using 19 different text-to-speech (TTS) and voice conversion (VC) systems. The dataset is specifically designed to evaluate countermeasure systems against logical access attacks.
+
+Key statistics:
+\begin{itemize}
+\item \textbf{Training set}: 25,380 bonafide + 25,380 spoofed utterances (6 known attack types: A01--A06)
+\item \textbf{Development set}: 2,548 bonafide + 22,296 spoofed utterances
+\item \textbf{Evaluation set}: 7,355 bonafide + 63,882 spoofed utterances (13 unknown attack types: A07--A19)
+\item \textbf{Sample rate}: 16 kHz
+\item \textbf{Format}: FLAC audio files
+\end{itemize}
 
 \subsection{Evaluation Metrics}
-% TODO: Add content here
+Following the ASVspoof 2019 evaluation protocol \cite{asvspoof2019evaluation}, we use:
+\begin{itemize}
+\item \textbf{Equal Error Rate (EER)}: The operating point where false acceptance rate equals false rejection rate---the primary metric for comparing systems.
+\item \textbf{minimum tandem Detection Cost Function (min-tDCF)}: A cost-weighted metric that considers both countermeasure and automatic speaker verification performance.
+\item \textbf{Accuracy}: Classification accuracy on the evaluation set.
+\end{itemize}
 
 \section{Data Processing Pipeline}
 
 \subsection{Feature Extraction Process}
-% TODO: Add content here
+The preprocessing pipeline follows standardized protocols:
+\begin{enumerate}
+\item \textbf{Audio loading}: Load FLAC files at native 16 kHz sampling rate
+\item \textbf{Length normalization}: Pad or truncate to 64,600 samples (approximately 4 seconds)
+\item \textbf{Silence trimming}: Remove leading/trailing silence using energy-based voice activity detection
+\item \textbf{Normalization}: Apply peak normalization to [-1, 1] range
+\end{enumerate}
+
+For models using Wav2Vec2 features, we extract embeddings from the pre-trained \texttt{facebook/wav2vec2-base-960h} model with frozen CNN encoder layers.
 
 \subsection{Data Augmentation and Normalization}
-% TODO: Add content here
+During training, we apply SpecAugment-style augmentation with frequency masking (parameter $F=10$) and time masking (parameter $T=10$) to improve generalization. Focal loss \cite{focalloss} is used to address the class imbalance (approximately 1:9 bonafide to spoof ratio in training).
 
 \section{Train/Validation/Test Splits}
 
 \subsection{Data Partitioning Strategy}
-% TODO: Add content here
+We follow the official ASVspoof 2019 LA partition:
+\begin{itemize}
+\item \textbf{Training}: Uses only known attack types (A01--A06) to simulate real-world scenarios where future attacks are unknown
+\item \textbf{Development}: Used for hyperparameter tuning and early stopping
+\item \textbf{Evaluation}: Contains 13 unseen attack types (A07--A19) to test generalization
+\end{itemize}
+
+This partition ensures that evaluation performance reflects the model's ability to generalize to novel, unseen spoofing methods---the core challenge in audio deepfake detection.
 

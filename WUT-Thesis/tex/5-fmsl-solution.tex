@@ -3,24 +3,70 @@
 \section{Introduction to FMSL}
 
 \subsection{FMSL Concept and Theory}
-% TODO: Add content here
+Feature Matching Self-Supervised Learning (FMSL) is a novel approach that addresses the geometric bottleneck identified in baseline audio deepfake detection models. The core insight is that effective detection requires not just discriminative features, but features that exhibit proper geometric properties in the embedding space.
+
+FMSL draws inspiration from successful face recognition techniques \cite{arcface} that use angular margin learning to enforce large inter-class variation and small intra-class variation. We adapt these principles to the audio deepfake detection domain, where the challenge is modeling the diverse spoof manifold while maintaining a compact bonafide representation.
 
 \subsection{FMSL Architecture}
-% TODO: Add content here
+The FMSL module consists of three key components:
+
+\textbf{1. Hypersphere Projection}: Features are L2-normalized to project them onto a unit hypersphere, ensuring that all embeddings have unit norm. This normalization is critical for angular-based learning:
+\begin{equation}
+\hat{x} = \frac{x}{\|x\|_2}
+\end{equation}
+
+\textbf{2. Angular Margin Learning}: We apply an additive angular margin $m$ to the target class during training, using the AM-Softmax formulation:
+\begin{equation}
+L = -\log \frac{e^{s(\cos(\theta_{y_i}) - m)}}{e^{s(\cos(\theta_{y_i}) - m)} + \sum_{j \neq y_i} e^{s \cos(\theta_j)}}
+\end{equation}
+where $s$ is a scale factor (set to 32.0) and $m$ is the angular margin (set to 0.45).
+
+\textbf{3. Prototype-Based Spoof Modeling}: To capture the diverse spoof manifold, we maintain $n$ learnable prototypes that represent different regions of the spoof class:
+\begin{equation}
+\text{sim}(x, P) = \max_{p \in P} \frac{x \cdot p}{\|x\| \|p\|}
+\end{equation}
 
 \section{Justification for FMSL as Solution}
 
 \subsection{Direct Problem-Solution Mapping}
-% TODO: Add content here
+FMSL directly addresses each limitation identified in Chapter 4:
+\begin{itemize}
+\item \textbf{Insufficient angular separation} $\rightarrow$ Angular margin loss enforces minimum angular distance between classes
+\item \textbf{Poor spoof manifold coverage} $\rightarrow$ Multiple prototypes capture diverse attack types
+\item \textbf{Non-compact representations} $\rightarrow$ L2 normalization constrains features to hypersphere
+\end{itemize}
 
 \subsection{Theoretical Advantages}
-% TODO: Add content here
+The theoretical advantages of FMSL include:
+\begin{enumerate}
+\item \textbf{Geometric constraints}: Explicit enforcement of angular separation improves generalization to unseen attacks
+\item \textbf{Scalable spoof modeling}: Prototype-based approach scales to diverse attack types without requiring attack-specific training
+\item \textbf{Compatible with existing architectures}: FMSL can be integrated into any feature extractor as a drop-in replacement for the classification head
+\end{enumerate}
+
+Recent work on latent space augmentation \cite{yan2023lsda} and test-time adaptation \cite{astrid2024tada} has shown the importance of robust feature representations for audio deepfake detection, further motivating our geometric approach.
 
 \section{FMSL Implementation Details}
 
 \subsection{Standardized FMSL Framework}
-% TODO: Add content here
+To ensure reproducibility and fair comparison, we implement FMSL with standardized parameters across all model variants:
+\begin{itemize}
+\item \textbf{Scale factor} $s = 32.0$
+\item \textbf{Angular margin} $m = 0.45$
+\item \textbf{Number of prototypes} $n = 3$
+\item \textbf{Embedding dimension}: Matches the baseline model's penultimate layer (typically 1024)
+\end{itemize}
+
+The implementation is provided in \texttt{Thesis/06\_Utilities/fmsl\_advanced.py}, which contains the \texttt{AdvancedFMSLSystem} class used by all FMSL-enhanced models.
 
 \subsection{Integration with Baseline Models}
-% TODO: Add content here
+FMSL is integrated by replacing the final classification layer with the FMSL module. The forward pass becomes:
+\begin{enumerate}
+\item Extract features using the baseline encoder
+\item Apply FMSL projection and normalization
+\item Compute angular margin logits
+\item Return predictions and (during training) FMSL loss components
+\end{enumerate}
+
+This modular design allows FMSL to be applied to any of the eight Maze architectures without modifying the feature extraction backbone.
 
