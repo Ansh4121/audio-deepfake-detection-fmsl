@@ -247,7 +247,7 @@
 %--------------------------------
 \newcounter{chapter}
 \renewcommand{\thechapter}{\arabic{chapter}}
-\newcommand{\@chapter}[1]{%
+\providecommand{\@eiti@chapter}[1]{%
 	\cleardoublepage
 	\refstepcounter{chapter}%
 	\phantomsection
@@ -256,8 +256,8 @@
 	{\centering\Large\bfseries\thechapter. #1\par}%
 	\vspace{1.5cm}%
 }
-\newcommand{\chapter}[1]{%
-	\@chapter{#1}%
+\providecommand{\chapter}[1]{%
+	\@eiti@chapter{#1}%
 }
 
 %--------------------------------
