@@ -1,0 +1,274 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bachelor's & Master's Thesis Template             %%
+%% Copyleft by Artur M. Brodzki & Piotr Woźniak      %%
+%% Faculty of Electronics and Information Technology %%
+%% Warsaw University of Technology, 2019-2020        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[
+    left=30mm,          % Inside (binding) margin: 30mm (WUT)
+    right=20mm,         % Outside margin: 20mm (WUT)
+    top=25mm,           % Upper margin: 25mm (WUT)
+    bottom=25mm,        % Lower margin: 25mm (WUT)
+    bindingoffset=6mm,
+    nohyphenation=false
+]{eiti/eiti-thesis}
+
+\usepackage{csquotes}   % Recommended by biblatex when used with babel
+
+\langeng % English thesis
+\graphicspath{{img/}}             % Katalog z obrazkami.
+\addbibresource{bibliografia.bib} % Plik .bib z bibliografią
+
+\begin{document}
+
+%--------------------------------------
+% Strona tytułowa
+%--------------------------------------
+\EngineerThesis % Engineering Diploma (Bachelor's thesis)
+\instytut{Computer Science}
+\kierunek{Computer science}
+\specjalnosc{Computer Systems and Networks}
+\title{
+    Enhancing TTS Deepfake Audio Detection through Iterative Modeling and a Novel Pipeline Approach with \\
+    Feature Matching Self-Supervised Learning (FMSL)
+}
+\engtitle{ % Title for English summary
+    Enhancing TTS Deepfake Audio Detection through Iterative Modeling and a Novel Pipeline Approach with \\
+    Feature Matching Self-Supervised Learning (FMSL)
+}
+\author{Ansh Choudhary}
+\album{317174}
+\promotor{prof. dr hab. inż Włodzimierz Kasprzak}
+\date{\the\year}
+\maketitle
+
+%--------------------------------------
+% Summary in English (one page, single spacing, 12pt font)
+%--------------------------------------
+\cleardoublepage % Start on odd page
+\begingroup
+\setstretch{1.15}
+\fontsize{12pt}{12pt}\selectfont
+\abstract
+\noindent\textbf{Enhancing TTS Deepfake Audio Detection through Iterative Modeling and a Novel Pipeline Approach with Feature Matching Self-Supervised Learning (FMSL)}
+
+\vspace{0.3cm}
+\noindent This thesis presents a systematic approach to enhancing Text-to-Speech (TTS) deepfake audio detection through progressive model complexity exploration and a novel Feature Matching Self-Supervised Learning (FMSL) solution. The work consists of two main stages: systematic exploration of 7 baseline models (Maze 1-7) with progressively increasing complexity to identify common performance limitations, followed by development and validation of FMSL applied universally across all models. The key contribution is the design of FMSL as a universal enhancement that improves all tested architectures, with the best improvement of 83\% observed on Maze5.
+
+\vspace{0.2cm}
+\noindent Experiments were conducted on the ASVspoof 2019 dataset, utilizing diverse architectures from simple RawNet2 to advanced models incorporating Wav2Vec2, Transformer, and other components. The progressive complexity approach (Maze 1 to Maze 7) helped identify geometric bottlenecks in feature representations, leading to the development of FMSL which combines self-supervised learning with feature matching. FMSL was tested on all 7 models and demonstrated universal improvement across all architectures. Detailed analysis of Maze5 with FMSL shows precision improvement from 27.66\% to 50.83\%.
+
+\keywords TTS deepfake detection, pipeline approach, iterative modeling, FMSL, forgery detection, self-supervised learning
+\endgroup
+
+%--------------------------------------
+% Streszczenie po polsku (one page, single spacing, 12pt font)
+%--------------------------------------
+\newpage
+\begingroup
+\setstretch{1.15}
+\fontsize{12pt}{12pt}\selectfont
+\streszczenie
+\noindent\textbf{Ulepszanie wykrywania TTS deepfake'ów audio poprzez iteracyjne modelowanie i nowe podejście pipeline z Feature Matching Self-Supervised Learning (FMSL)}
+
+\vspace{0.3cm}
+\noindent Niniejsza praca przedstawia systematyczne podejście do ulepszania wykrywania Text-to-Speech (TTS) deepfake'ów audio poprzez eksplorację progresywnej złożoności modeli i nowe rozwiązanie Feature Matching Self-Supervised Learning (FMSL). Praca składa się z dwóch głównych etapów: systematycznej eksploracji 7 modeli bazowych (Maze 1-7) o progresywnie rosnącej złożoności w celu identyfikacji wspólnych ograniczeń wydajności, a następnie opracowania i walidacji FMSL zastosowanego uniwersalnie na wszystkich modelach. Głównym wkładem jest projekt FMSL jako uniwersalnego ulepszenia, które poprawia wszystkie testowane architektury, z najlepszą poprawą 83\% zaobserwowaną na Maze5.
+
+\vspace{0.2cm}
+\noindent Eksperymenty przeprowadzono na zbiorze danych ASVspoof 2019, wykorzystując różnorodne architektury od prostego RawNet2 po zaawansowane modele zawierające Wav2Vec2, Transformer i inne komponenty. Podejście progresywnej złożoności (Maze 1 do Maze 7) pomogło zidentyfikować geometryczne wąskie gardła w reprezentacjach cech, prowadząc do opracowania FMSL, które łączy uczenie samokontrolowane z dopasowywaniem cech. FMSL zostało przetestowane na wszystkich 7 modelach i wykazało uniwersalną poprawę we wszystkich architekturach. Szczegółowa analiza Maze5 z FMSL pokazuje poprawę precyzji z 27,66\% do 50,83\%.
+
+\slowakluczowe wykrywanie TTS deepfake, podejście pipeline, iteracyjne modelowanie, FMSL, wykrywanie fałszerstw, uczenie samokontrolowane
+\endgroup
+
+%--------------------------------------
+% Oświadczenie o autorstwie
+%--------------------------------------
+\cleardoublepage  % Zaczynamy od nieparzystej strony
+\pagestyle{plain}
+\makeauthorship
+
+%--------------------------------------
+% Spis treści
+%--------------------------------------
+\cleardoublepage % Zaczynamy od nieparzystej strony
+\tableofcontents
+
+%--------------------------------------
+% Rozdziały
+%--------------------------------------
+\cleardoublepage % Zaczynamy od nieparzystej strony
+\pagestyle{headings}
+
+%--------------------------------------
+% Chapters
+%--------------------------------------
+\input{tex/1-introduction}
+\input{tex/2-dataset}
+\input{tex/3-baseline-models}
+\input{tex/4-limitation-identification}
+\input{tex/5-fmsl-solution}
+\input{tex/6-experimental-validation}
+\input{tex/8-conclusion}
+
+%--------------------------------------------
+% Literatura
+%--------------------------------------------
+\cleardoublepage % Zaczynamy od nieparzystej strony
+\printbibliography
+
+%--------------------------------------------
+% Spisy (opcjonalne) - WUT Regulations Order:
+% 9) List of symbols and abbreviations (optional)
+% 10) List of Figures
+% 11) List of Tables
+% 12) List of Appendices
+%--------------------------------------------
+\cleardoublepage % Start on odd page
+\pagestyle{plain}
+
+%--------------------------------------------
+% List of Symbols and Abbreviations (optional)
+%--------------------------------------------
+\vspace{0.8cm}
+\acronymlist
+% TODO: Add symbols and abbreviations alphabetically if needed
+\acronym{FMSL}{Feature Matching Self-Supervised Learning}
+\acronym{ASVspoof}{Automatic Speaker Verification Spoofing}
+
+%--------------------------------------------
+% List of Figures (WUT Regulation #10)
+% NOTE: This is the TABLE OF CONTENTS for figures.
+% Actual figures should be placed IN THE TEXT where they are referenced.
+%--------------------------------------------
+\listoffigurestoc     % Spis rysunków.
+\vspace{1cm}          % vertical space
+
+%--------------------------------------------
+% List of Tables (WUT Regulation #11)
+% NOTE: This is the TABLE OF CONTENTS for tables.
+% Actual tables should be placed IN THE TEXT where they are referenced.
+%--------------------------------------------
+\listoftablestoc      % Spis tabel.
+\vspace{1cm}          % vertical space
+
+%--------------------------------------------
+% List of Appendices (WUT Regulation #12)
+%--------------------------------------------
+\listofappendicestoc  % Spis załączników
+
+%--------------------------------------------
+% Appendices (if needed)
+%--------------------------------------------
+\newpage
+\appendix{Evaluation Scripts and Configuration}
+
+\subsection{Repository and Access}
+
+The code and figures used in this thesis are available in the accompanying GitHub repository. Replace \texttt{<USER>} and \texttt{<REPO>} with the actual GitHub username and repository name.
+
+\begin{itemize}
+\item \textbf{Repository (root):} \url{https://github.com/<USER>/<REPO>}
+\item \textbf{Evaluation scripts:} \url{https://github.com/<USER>/<REPO>/tree/main/Thesis/02_Evaluation_Scripts}
+\item \textbf{Baseline models:} \url{https://github.com/<USER>/<REPO>/tree/main/Thesis/01_Models/01_Baseline_Models}
+\item \textbf{FMSL-enhanced models:} \url{https://github.com/<USER>/<REPO>/tree/main/Thesis/01_Models/02_FMSL_Enhanced_Models}
+\item \textbf{Thesis figures (all PNGs used in the thesis):} \url{https://github.com/<USER>/<REPO>/tree/main/WUT-Thesis/img}
+\item \textbf{Configuration files:} \url{https://github.com/<USER>/<REPO>/tree/main/Thesis/07_Configuration_Files}
+\end{itemize}
+
+\subsection{Complete List of Code Used to Produce Results}
+
+Every script used to produce the results, figures, and tables in Chapters~4--6 is listed below with its repository path and role.
+
+\textbf{Main evaluation and analysis (Thesis/02\_Evaluation\_Scripts/):}
+\begin{itemize}
+\item \texttt{comprehensive\_thesis\_analyser.py} -- Primary analysis across all Maze models; generates comparison tables, performance charts, and thesis-ready figures (e.g.\ \texttt{maze\_models\_comparison.png}, \texttt{fmsl\_standardization\_analysis.png}, \texttt{bottleneck\_analysis.png}, \texttt{trend\_visualizations.png}, \texttt{comprehensive\_histogram.png}, \texttt{thesis\_results\_table.csv}, \texttt{thesis\_results\_table.tex}).
+\item \texttt{comprehensive\_thesis\_analyser\_colab.py} -- Colab variant of the above for cloud runs.
+\item \texttt{fmsl\_deep\_analysis.py} -- Statistical and geometric analysis of FMSL impact; improvement metrics, significance tests (t-test, Wilcoxon, Mann-Whitney U), score distributions, and reports.
+\item \texttt{baseline\_limitation\_analysis.py} -- Baseline failure patterns and geometric bottlenecks; evidence for Chapter~4.
+\item \texttt{create\_baseline\_only\_figures.py} -- Produces \texttt{maze\_models\_comparison.png} and \texttt{bottleneck\_analysis.png} for Chapter~4.
+\item \texttt{create\_bottleneck\_proof\_visualization.py} -- Geometric bottleneck proof visualizations.
+\item \texttt{create\_maze6\_vs\_maze7\_comparison.py} -- Produces \texttt{maze6\_vs\_maze7\_baseline\_comparison.png} (early FMSL vs baseline).
+\item \texttt{create\_limitation\_figures.py} -- Additional limitation-analysis figures.
+\item \texttt{geometric\_bottleneck\_proof\_analysis.py} -- Bottleneck proof analysis and outputs.
+\item \texttt{analyze\_maze5\_6\_7\_differences.py} -- Comparative analysis of Maze~5, 6, 7.
+\item \texttt{comprehensive\_evaluation.py} -- Full evaluation pipeline; model loading and metrics.
+\item \texttt{Eval.py} -- Maze~5-focused evaluation and dashboard (ROC, PR, score distributions, \texttt{comprehensive\_analysis\_dashboard.png}, \texttt{confusion\_matrix\_analysis.png}).
+\item \texttt{Maze2\_Eval.py}, \texttt{Maze3\_Eval.py}, \texttt{Maze5\_eval.py}, \texttt{Maze6\_Eval.py}, \texttt{Maze7\_Eval.py}, \texttt{Maze8\_Eval.py} -- Per-model inference on ASVspoof 2019 LA; CM score generation. Model renumbering (Maze~4 removed, 5--8 $\to$ 5--7) is applied in analysis scripts.
+\item \texttt{Maze6\_Comprehensive\_Eval\_Colab.py} -- Colab-oriented comprehensive evaluation for Maze~6.
+\end{itemize}
+
+\textbf{Models (training and inference):}
+\begin{itemize}
+\item \texttt{Thesis/01\_Models/01\_Baseline\_Models/}: \texttt{maze3.py}, \texttt{maze4.py}, \texttt{maze5.py}, \texttt{maze6.py}, \texttt{maze7.py}, \texttt{maze8.py} -- Baseline architectures.
+\item \texttt{Thesis/01\_Models/02\_FMSL\_Enhanced\_Models/}: \texttt{main\_fmsl\_standardized.py}, \texttt{maze2\_fmsl\_standardized.py}--\texttt{maze8\_fmsl\_standardized.py} -- FMSL-enhanced, standardized versions used for fair comparison.
+\item \texttt{fmsl\_advanced.py} (repository root) -- Shared FMSL layer implementation used by the standardized FMSL models.
+\end{itemize}
+
+\textbf{Utilities and configuration:}
+\begin{itemize}
+\item \texttt{standardized\_maze\_config.py} (repository root and \texttt{Thesis/}) -- Python standardization for fair comparison (see~\ref{sec:standardization}).
+\item \texttt{Thesis/06\_Utilities/data\_preprocessor.py}, \texttt{model\_trainer.py} -- Data preprocessing and training utilities.
+\item \texttt{Thesis/analyze\_maze\_configurations.py}, \texttt{verify\_maze\_configurations.py} -- Configuration consistency checks.
+\end{itemize}
+
+\textbf{Notebooks (reproducibility):}
+\begin{itemize}
+\item \texttt{Colab\_Evaluation\_Notebook.ipynb}, \texttt{Unified\_Evaluation\_Colab.ipynb} (root), \texttt{Thesis/08\_Notebooks/Complete\_Thesis.ipynb} -- Colab notebooks for running evaluation and reproducing results.
+\end{itemize}
+
+\subsection{Standardization: YAML vs Python Configuration}
+\label{sec:standardization}
+
+\textbf{What was used for thesis results.} All results and figures in this thesis were produced using a \emph{Python-based} standardization scheme, not the YAML configuration files. The file \texttt{standardized\_maze\_config.py} defines a single \texttt{STANDARDIZED\_CONFIG} dictionary (architecture: \texttt{filts}, \texttt{nb\_fc\_node}, \texttt{nb\_classes}, sample rate, dropout; Wav2Vec2 settings; FMSL parameters; training batch size, learning rate, epochs, seed). The evaluation scripts and the FMSL ``standardized'' model scripts (\texttt{*\_fmsl\_standardized.py}) use this (or equivalent inline settings) so that baseline and FMSL variants are compared under the same embedding dimension, loss, and training protocol. This ensures the improvements reported in Chapters~5--6 are due to FMSL rather than to differing configs.
+
+\textbf{YAML configuration files (where they are and why they were not used for thesis numbers).} The repository contains per-model YAML files in \texttt{Thesis/07\_Configuration\_Files/}: \texttt{model\_config\_Maze5.yaml}, \texttt{model\_config\_Maze6.yaml}, \texttt{model\_config\_Model4.yaml}, \texttt{model\_config\_Model7.yaml}, \texttt{model\_config\_RawNet.yaml}. These files specify training hyperparameters (learning rate, epochs, batch size, Wav2Vec2 layers, data paths, etc.) for training runs (e.g.\ in Colab). They were \emph{not} used as the source of truth for the evaluation pipeline that generates the thesis tables and figures. Reasons: (1) the evaluation and figure-generation scripts take model checkpoints and CM scores as input and use hardcoded or Python-config alignment (e.g.\ \texttt{standardized\_maze\_config.py}) for consistency; (2) the YAMLs contain machine-specific paths (e.g.\ \texttt{/content/drive/...}) and per-model variations that are not applied uniformly in the scripts that produce the reported metrics; (3) the thesis explicitly documents a single standardized protocol (Chapter~6), which is implemented in Python. Thus, for reproducibility of the \emph{thesis results}, readers should rely on the Python standardization and the listed scripts; the YAMLs remain useful for optional, separate training setups.
+
+\subsection{Configuration and Data Structure}
+
+CM score files and evaluation outputs are stored in timestamped directories (e.g.\ \texttt{evaluation\_results-YYYYMMDDTHHMMSSZ-*}) or under \texttt{Thesis/02\_Evaluation\_Scripts/thesis\_analysis\_results/} and \texttt{Thesis/04\_Results\_and\_Analysis/}. Paths are resolved relative to the repository root so that the same commands work in local and Colab environments.
+
+\subsection{Statistical Analysis Tools}
+
+The evaluation scripts include McNemar's test, confidence intervals, and distribution analysis used in Chapter~6, Section~6.4.
+
+\newpage
+\appendix{Additional Figures and Metrics}
+
+This appendix documents all figures used in the thesis and their locations in the GitHub repository. Each figure can be found under \texttt{WUT-Thesis/img/} in the repo; the same files are used by the thesis source (\texttt{WUT-Thesis/tex/}) via the path \texttt{img/} relative to the thesis directory.
+
+\subsection{Figure Locations (GitHub Repository)}
+
+All figures are in the repository at: \url{https://github.com/<USER>/<REPO>/tree/main/WUT-Thesis/img}. Direct links (replace \texttt{<USER>} and \texttt{<REPO>}): e.g.\ \url{https://github.com/<USER>/<REPO>/blob/main/WUT-Thesis/img/maze_models_comparison.png}.
+
+\textbf{Figures used in Chapter~4 (Limitation identification):} \texttt{maze\_models\_comparison.png}, \texttt{bottleneck\_analysis.png}, \texttt{maze6\_vs\_maze7\_baseline\_comparison.png}.
+
+\textbf{Figures used in Chapter~6 (Experimental validation):} \texttt{maze\_models\_comparison.png}, \texttt{fmsl\_standardization\_analysis.png}, \texttt{performance\_comparison.png}, \texttt{confusion\_matrix\_analysis.png}, \texttt{comprehensive\_analysis\_dashboard.png}, \texttt{fmsl\_impact\_analysis.png}.
+
+\textbf{Additional figures (this appendix):} \texttt{score\_distributions.png}, \texttt{comprehensive\_histogram.png}, \texttt{roc\_curves.png}, \texttt{precision\_recall\_curves.png}, \texttt{trend\_visualizations.png}, \texttt{model\_architecture\_comparison.png}. All are under \texttt{WUT-Thesis/img/} in the repo; source code to regenerate them is in \texttt{Thesis/02\_Evaluation\_Scripts/} (see Appendix~A).
+
+\subsection{Extended Score Distribution Visualizations}
+
+\textbf{score\_distributions.png}: Detailed score distributions for all Maze models (baseline and FMSL) on ASVspoof 2019 LA; illustrates reduced overlap and improved geometric separation. \textbf{comprehensive\_histogram.png}: Consolidated histogram comparison across all models and variants.
+
+\subsection{Extended ROC and Precision-Recall Curves}
+
+\textbf{roc\_curves.png}: ROC curves for all seven Maze models. \textbf{precision\_recall\_curves.png}: Precision-recall curves for all models (relevant for the imbalanced LA dataset).
+
+\subsection{Performance Trend Visualizations}
+
+\textbf{trend\_visualizations.png}: Performance trends along the progressive complexity sequence (Maze~1--7); baseline non-monotonicity and universal FMSL improvement. \textbf{model\_architecture\_comparison.png}: Architectural components per model (RawNet2, Wav2Vec2, Transformer, SE, SpecAugment, Focal Loss).
+
+\subsection{Comprehensive Analysis Dashboards}
+
+\textbf{comprehensive\_analysis\_dashboard.png}: Maze~5 multi-panel dashboard (ROC, PR, confusion matrices, score distributions). \textbf{fmsl\_impact\_analysis.png}: FMSL impact across EER, minDCF, accuracy, tDCF for all seven models.
+
+\subsection{Parameter Overhead and Computational Analysis}
+
+Parameter counts, training time, and inference speed were analyzed for all models; FMSL adds minimal parameter overhead (typically $<$5\%) and modest training-time increase, with inference time effectively unchanged.
+
+\subsection{Regenerating Figures}
+
+To regenerate any figure: (1) clone the repository; (2) install dependencies (\texttt{requirements.txt} or \texttt{environment.yml}); (3) run the relevant script from \texttt{Thesis/02\_Evaluation\_Scripts/} (see Appendix~A) with the evaluation results data. Outputs can be copied to \texttt{WUT-Thesis/img/}. Raw evaluation results (CM scores, metrics) are in timestamped directories or under \texttt{Thesis/04\_Results\_and\_Analysis/}.
+
+\end{document} % Dobranoc.
