@@ -182,39 +182,29 @@ Every script used to produce the results, figures, and tables in Chapters~4--6 i
 
 \textbf{Main evaluation and analysis (Thesis/02\_Evaluation\_Scripts/):}
 \begin{itemize}
-\item \texttt{comprehensive\_thesis\_analyser.py} -- Primary analysis across all Maze models; generates comparison tables, performance charts, and thesis-ready figures (e.g.\ \texttt{maze\_models\_comparison.png}, \texttt{fmsl\_standardization\_analysis.png}, \texttt{bottleneck\_analysis.png}, \texttt{trend\_visualizations.png}, \texttt{comprehensive\_histogram.png}, \texttt{thesis\_results\_table.csv}, \texttt{thesis\_results\_table.tex}).
-\item \texttt{comprehensive\_thesis\_analyser\_colab.py} -- Colab variant of the above for cloud runs.
-\item \texttt{fmsl\_deep\_analysis.py} -- Statistical and geometric analysis of FMSL impact; improvement metrics, significance tests (t-test, Wilcoxon, Mann-Whitney U), score distributions, and reports.
-\item \texttt{baseline\_limitation\_analysis.py} -- Baseline failure patterns and geometric bottlenecks; evidence for Chapter~4.
-\item \texttt{create\_baseline\_only\_figures.py} -- Produces \texttt{maze\_models\_comparison.png} and \texttt{bottleneck\_analysis.png} for Chapter~4.
-\item \texttt{create\_bottleneck\_proof\_visualization.py} -- Geometric bottleneck proof visualizations.
-\item \texttt{create\_maze6\_vs\_maze7\_comparison.py} -- Produces \texttt{maze6\_vs\_maze7\_baseline\_comparison.png} (early FMSL vs baseline).
-\item \texttt{create\_limitation\_figures.py} -- Additional limitation-analysis figures.
-\item \texttt{geometric\_bottleneck\_proof\_analysis.py} -- Bottleneck proof analysis and outputs.
-\item \texttt{analyze\_maze5\_6\_7\_differences.py} -- Comparative analysis of Maze~5, 6, 7.
-\item \texttt{comprehensive\_evaluation.py} -- Full evaluation pipeline; model loading and metrics.
-\item \texttt{Eval.py} -- Maze~5-focused evaluation and dashboard (ROC, PR, score distributions, \texttt{comprehensive\_analysis\_dashboard.png}, \texttt{confusion\_matrix\_analysis.png}).
-\item \texttt{Maze2\_Eval.py}, \texttt{Maze3\_Eval.py}, \texttt{Maze5\_eval.py}, \texttt{Maze6\_Eval.py}, \texttt{Maze7\_Eval.py}, \texttt{Maze8\_Eval.py} -- Per-model inference on ASVspoof 2019 LA; CM score generation. Model renumbering (Maze~4 removed, 5--8 $\to$ 5--7) is applied in analysis scripts.
-\item \texttt{Maze6\_Comprehensive\_Eval\_Colab.py} -- Colab-oriented comprehensive evaluation for Maze~6.
+\item \texttt{comprehensive\_thesis\_analyser.py} -- Primary analysis script that generates all thesis figures and tables. This script performs comprehensive analysis across all Maze models (baseline and FMSL-enhanced variants), loads CM score files from evaluation results, calculates key metrics (EER, minDCF, accuracy), generates comparison tables, and produces visualizations including: \texttt{maze\_models\_comparison.png}, \texttt{fmsl\_standardization\_analysis.png}, \texttt{bottleneck\_analysis.png}, \texttt{trend\_visualizations.png}, \texttt{comprehensive\_histogram.png}, \texttt{thesis\_results\_table.csv}, and \texttt{thesis\_results\_table.tex}. The script handles model renumbering (removing Maze~4, renumbering subsequent models) and ensures consistent formatting for thesis inclusion.
+\item \texttt{comprehensive\_evaluation.py} -- Full evaluation pipeline providing model loading, inference execution, and metric calculation across all models. Handles checkpoint loading, batch processing, and CM score file generation.
+\item \texttt{Eval.py} -- Maze~5-focused evaluation script generating detailed analysis dashboards including ROC curves, Precision-Recall curves, score distributions, \texttt{comprehensive\_analysis\_dashboard.png}, and \texttt{confusion\_matrix\_analysis.png}. Provides statistical validation and performance metrics specific to the optimal architecture.
+\item \texttt{Maze2\_Eval.py}, \texttt{Maze3\_Eval.py}, \texttt{Maze5\_eval.py}, \texttt{Maze6\_Eval.py}, \texttt{Maze7\_Eval.py}, \texttt{Maze8\_Eval.py} -- Per-model evaluation scripts that load model checkpoints, run inference on the ASVspoof 2019 LA evaluation set, and generate CM score files. These scripts follow a standardized protocol: load audio data, apply preprocessing (16~kHz sampling, silence trimming, length normalization to 64,600 samples), extract features (raw waveform, spectrograms, or Wav2Vec2 embeddings depending on the model), run inference, and output scores in the format required by ASVspoof evaluation tools. Model renumbering (Maze~4 removed, 5--8 $\to$ 5--7) is applied in the analysis scripts.
+\item \texttt{score\_file\_processor.py} -- Utility script for processing CM score files and calculating evaluation metrics from the generated score files.
 \end{itemize}
 
 \textbf{Models (training and inference):}
 \begin{itemize}
-\item \texttt{Thesis/01\_Models/01\_Baseline\_Models/}: \texttt{maze3.py}, \texttt{maze4.py}, \texttt{maze5.py}, \texttt{maze6.py}, \texttt{maze7.py}, \texttt{maze8.py} -- Baseline architectures.
-\item \texttt{Thesis/01\_Models/02\_FMSL\_Enhanced\_Models/}: \texttt{main\_fmsl\_standardized.py}, \texttt{maze2\_fmsl\_standardized.py}--\texttt{maze8\_fmsl\_standardized.py} -- FMSL-enhanced, standardized versions used for fair comparison.
-\item \texttt{fmsl\_advanced.py} (repository root) -- Shared FMSL layer implementation used by the standardized FMSL models.
+\item \texttt{Thesis/01\_Models/01\_Baseline\_Models/}: \texttt{main.py}, \texttt{maze2.py}, \texttt{maze3.py}, \texttt{maze4.py}, \texttt{maze5.py}, \texttt{maze6.py}, \texttt{maze7.py}, \texttt{maze8.py} -- Baseline model architectures implementing the progressive complexity sequence. Each script contains the complete model definition, training loop, and checkpoint saving functionality.
+\item \texttt{Thesis/01\_Models/02\_FMSL\_Enhanced\_Models/}: \texttt{main\_fmsl\_standardized.py}, \texttt{maze2\_fmsl\_standardized.py}, \texttt{maze3\_fmsl\_standardized.py}, \texttt{maze4\_fmsl\_standardized.py}, \texttt{maze5\_fmsl\_standardized.py}, \texttt{maze6\_fmsl\_standardized.py}, \texttt{maze7\_fmsl\_standardized.py}, \texttt{maze8\_fmsl\_standardized.py} -- FMSL-enhanced, standardized versions of each baseline model. These scripts integrate the FMSL layer (Feature Matching Self-Supervised Learning) into the baseline architectures using the standardized configuration for fair comparison. All FMSL models use consistent parameters (embedding dimensions, FMSL prototypes, angular margin) as defined in \texttt{standardized\_maze\_config.py}.
 \end{itemize}
 
 \textbf{Utilities and configuration:}
 \begin{itemize}
-\item \texttt{standardized\_maze\_config.py} (repository root and \texttt{Thesis/}) -- Python standardization for fair comparison (see~\ref{sec:standardization}).
+\item \texttt{Thesis/standardized\_maze\_config.py} -- Python standardization configuration for fair comparison (see~\ref{sec:standardization}). Defines the \texttt{STANDARDIZED\_CONFIG} dictionary used by all evaluation scripts and FMSL-enhanced models to ensure consistent comparison parameters.
 \item \texttt{Thesis/06\_Utilities/data\_preprocessor.py}, \texttt{model\_trainer.py} -- Data preprocessing and training utilities.
 \item \texttt{Thesis/analyze\_maze\_configurations.py}, \texttt{verify\_maze\_configurations.py} -- Configuration consistency checks.
 \end{itemize}
 
 \textbf{Notebooks (reproducibility):}
 \begin{itemize}
-\item \texttt{Colab\_Evaluation\_Notebook.ipynb}, \texttt{Unified\_Evaluation\_Colab.ipynb} (root), \texttt{Thesis/08\_Notebooks/Complete\_Thesis.ipynb} -- Colab notebooks for running evaluation and reproducing results.
+\item \texttt{Thesis/08\_Notebooks/Colab\_Evaluation\_Notebook.ipynb}, \texttt{Thesis/08\_Notebooks/Unified\_Evaluation\_Colab.ipynb}, \texttt{Thesis/08\_Notebooks/Complete\_Thesis.ipynb} -- Jupyter notebooks for running evaluation in Google Colab and reproducing results. These notebooks provide step-by-step execution of model evaluation, figure generation, and result analysis in a cloud environment.
 \end{itemize}
 
 \subsection{Standardization: YAML vs Python Configuration}
@@ -269,6 +259,6 @@ Parameter counts, training time, and inference speed were analyzed for all model
 
 \subsection{Regenerating Figures}
 
-To regenerate any figure: (1) clone the repository; (2) install dependencies (\texttt{requirements.txt} or \texttt{environment.yml}); (3) run the relevant script from \texttt{Thesis/02\_Evaluation\_Scripts/} (see Appendix~A) with the evaluation results data. Outputs can be copied to \texttt{WUT-Thesis/img/}. Raw evaluation results (CM scores, metrics) are in timestamped directories or under \texttt{Thesis/04\_Results\_and\_Analysis/}.
+To regenerate any figure: (1) clone the repository from \url{https://github.com/Ansh4121/audio-deepfake-detection-fmsl}; (2) install dependencies (\texttt{requirements.txt} in repository root or \texttt{Thesis/07\_Configuration\_Files/requirements.txt}); (3) run \texttt{Thesis/02\_Evaluation\_Scripts/comprehensive\_thesis\_analyser.py} with the evaluation results data (CM score files). The script will generate all thesis figures in \texttt{Thesis/02\_Evaluation\_Scripts/thesis\_analysis\_results/}; copy the PNG files to \texttt{WUT-Thesis/img/} for inclusion in the thesis. For detailed usage instructions, see \texttt{Thesis/02\_Evaluation\_Scripts/README.md}. Raw evaluation results (CM scores, metrics) are stored in timestamped directories following the naming convention \texttt{evaluation\_results-YYYYMMDDTHHMMSSZ-*} or can be generated by running the per-model evaluation scripts (\texttt{Maze*\_Eval.py}).
 
 \end{document} % Dobranoc.
